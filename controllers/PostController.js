@@ -3,11 +3,32 @@ const Post = require('../models/Post');
 class PostController {
 
     async index (req,res){
-        return res.send(await Post.find({}));
+        return res.send(await Post.paginate({},{
+            page: req.query.page || 1,
+            limit: 2,
+            sort: 'createdAt',
+            populate: [
+                {
+                    path: 'autor',
+                    select: 'nome email'
+                }
+            ]
+        }));
+        //return res.send(await Post.find({}).populate('autor','nome email'));
+    
     }
 
     async show (req,res){
-        const postEncontrado = await Post.findById(req.params.postId);
+        const postEncontrado = await Post.findById(req.params.postId)
+        .populate('autor','nome email')
+        .populate({
+            path: 'comentarios',
+            populate: {
+                path: 'autor',
+                select: 'nome email'
+            }
+        })
+        
         if(postEncontrado){
             return res.send(postEncontrado);
         }
@@ -15,7 +36,7 @@ class PostController {
     }
 
     async store (req,res){
-        await Post.create(req.body);
+        await Post.create({...req.body, autor: req.usuarioId});
         return res.sendStatus(201);
     }
 

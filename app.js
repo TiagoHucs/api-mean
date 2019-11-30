@@ -15,8 +15,11 @@ const authMiddleware = require('./middlewares/authMiddleware');
 const app = express();
 app.use(express.json());
 
+//SOLUCAO nao carregara .js .css etc...
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', (req,res)=>{
-    res.send('Hello World');
+    res.sendFile('public/index.html', { root: __dirname });
 });
 
 app.post('/auth',validator.body(AuthValidator),AuthController.store);
@@ -39,3 +42,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen('3000');
+
+

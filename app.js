@@ -18,6 +18,7 @@ app.use(express.json());
 //SOLUCAO nao carregara .js .css etc...
 app.use(express.static(__dirname + '/public'));
 
+
 app.get('/', (req,res)=>{
     res.sendFile('public/index.html', { root: __dirname });
 });
@@ -25,7 +26,7 @@ app.get('/', (req,res)=>{
 app.post('/auth',validator.body(AuthValidator),AuthController.store);
 app.post('/usuarios', validator.body(UsuarioValidator) ,UsuarioController.store);
 
-app.use(authMiddleware); //protege rotas abaixo
+//app.use(authMiddleware); //protege rotas abaixo
 
 app.use('/posts',PostRoutes);
 app.use('/comentarios',ComentarioRoutes);

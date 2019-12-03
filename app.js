@@ -13,15 +13,18 @@ const AuthController = require('./controllers/AuthController');
 const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
-app.use(express.json());
+//app.use(express.json());
 
 //SOLUCAO nao carregara .js .css etc...
 app.use(express.static(__dirname + '/public'));
 
+// app.get('/*', (req,res)=>{
+//     res.sendFile('/public/index.html', { root: __dirname });
+// }); 
 
-app.get('/', (req,res)=>{
-    res.sendFile('public/index.html', { root: __dirname });
-});
+app.get('/*', (req,res)=> res.sendFile(path.join(__dirname))); 
+
+ 
 
 app.post('/auth',validator.body(AuthValidator),AuthController.store);
 app.post('/usuarios', validator.body(UsuarioValidator) ,UsuarioController.store);

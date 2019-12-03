@@ -7,13 +7,11 @@ module.exports = async (req, res, next) => {
 
     const array = req.originalUrl.split('.');
     const extencao = array[array.length-1];
-    if(extencao == 'css' || extencao == 'js'){
+    if(extencao == 'css' || extencao == 'js' || extencao == 'ico'){
         return next();
-    }
-
-    if (!authHeader) {
+    } else if (!authHeader) {
         //console.log(req.protocol + "://" + req.get('host') + req.originalUrl);
-        return res.status(401).json({ error: 'Token não fornecido' });
+        return res.status(401).json({ error: 'Token não fornecido ' + extencao });
     }
 
     const [, token] = authHeader.split(' ');

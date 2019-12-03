@@ -1,6 +1,7 @@
 
 require('./config/mongoose');
 const express = require('express');
+const path = require('path');
 const validator = require('express-joi-validation').createValidator({passError:true});
 const UsuarioValidator = require('./validators/UsuarioValidator');
 const AuthValidator = require('./validators/AuthValidator');

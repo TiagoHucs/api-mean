@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from './usuario';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,17 +9,28 @@ import { Usuario } from './usuario';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   usuario: Usuario = new Usuario();
-
-  constructor() { }
-
-  ngOnInit() {
+  loginForm: FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginService
+    ) {
   }
 
-  login(usuario: Usuario){
-    console.log('vou logar com');
-    console.log(usuario);
+  ngOnInit() {
+    this.montaFormulario();
+  }
+
+  login(){
+    console.log('vou logar')
+    this.service.login(this.loginForm.getRawValue())
+  }
+
+  montaFormulario(){
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      senha: ['', Validators.required],
+    });
   }
 
 }

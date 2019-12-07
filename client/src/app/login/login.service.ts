@@ -12,6 +12,6 @@ export class LoginService {
 
   login(user: any){
     console.log('chegou no servico front')
-    return this.http.post(`/auth`,user);
+    return this.http.post('./auth',user);
   }
 }

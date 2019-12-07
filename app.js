@@ -18,9 +18,9 @@ app.use(express.json());
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
  
 app.post('/auth',validator.body(AuthValidator),AuthController.store);
 app.post('/usuarios', validator.body(UsuarioValidator) ,UsuarioController.store);

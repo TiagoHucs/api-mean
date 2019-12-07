@@ -23,7 +23,12 @@ export class LoginComponent implements OnInit {
 
   login(){
     console.log('vou logar')
-    this.service.login(this.loginForm.getRawValue())
+    this.service.login(this.loginForm.getRawValue()).subscribe(()=>{
+      console.log('sucesso')
+    }, err => {
+      console.log('deu erro')
+    })
+    
   }
 
   montaFormulario(){

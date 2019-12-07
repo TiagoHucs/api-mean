@@ -4,10 +4,10 @@ const { promisify } = require('util');
 
 module.exports = async (req, res, next) => {
     const authHeader = req.headers.authorization;
-    console.log('chegou no middleware')
+    console.log('chegou no authMiddleware')
      if (!authHeader) {
         //console.log(req.protocol + "://" + req.get('host') + req.originalUrl);
-        return res.status(401).json({ error: 'Token não fornecido ' + extencao });
+        return res.status(401).json({ error: 'Token não fornecido '});
     }
 
     const [, token] = authHeader.split(' ');

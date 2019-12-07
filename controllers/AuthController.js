@@ -3,6 +3,7 @@ const Usuario = require('../models/Usuario');
 class AuthController {
 
     async store (req,res){
+        console.log('chegou no authController')
         const {email,senha} = req.body;
         
         const usuarioEncontrado = await Usuario.findOne({email});

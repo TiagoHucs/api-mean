@@ -5,6 +5,7 @@ const path = require('path');
 const validator = require('express-joi-validation').createValidator({passError:true});
 const UsuarioValidator = require('./validators/UsuarioValidator');
 const AuthValidator = require('./validators/AuthValidator');
+var cors = require('cors')
 
 const PostRoutes = require('./routes/PostRoutes');
 const ComentarioRoutes = require('./routes/ComentarioRoutes');
@@ -15,13 +16,16 @@ const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
 // app.use((req, res, next) => {
 //     res.sendFile(path.join(__dirname, "public", "index.html"));
 // });
- 
+
+
+
 app.post('/auth',validator.body(AuthValidator),AuthController.store);
 app.post('/usuarios', validator.body(UsuarioValidator) ,UsuarioController.store);
 

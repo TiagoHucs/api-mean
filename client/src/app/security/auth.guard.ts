@@ -9,12 +9,13 @@ import { AuthService } from './auth.service'; */
 export class AuthGuard implements CanActivate {
   constructor(/* public auth: AuthService, */ public router: Router) {}
   canActivate(): boolean {
-    
-     if (/*!this.auth.isAuthenticated()*/ true) {
+    let token = localStorage.getItem('token');
+    if (!token) {
       //console.log('AuthGuard: não esta autenticado vai pro login')
+      //essa regra não deveria estar no handler
       this.router.navigate(['login']);
       return false;
-    }
+    } 
     return true;
   }
 }

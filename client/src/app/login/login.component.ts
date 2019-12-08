@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from './usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private service: LoginService
     ) {
   }
@@ -22,11 +24,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log('vou logar')
-    this.service.login(this.loginForm.getRawValue()).subscribe(()=>{
-      console.log('sucesso')
+    this.service.login(this.loginForm.getRawValue()).subscribe((res:Resp) =>{
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/home']);
     }, err => {
-      console.log('deu erro')
+      console.log(err.error);
     })
     
   }
@@ -38,4 +40,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
+}
+
+export class Resp{
+    token: string;
 }

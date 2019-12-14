@@ -1,12 +1,17 @@
 <div class="container">
     <h3>Postagens</h3>
-    <ul>
-        <li *ngFor="let post of posts.docs">{{post.titulo}}
-            <p>{{post.texto}}</p>
-            <ul>
 
-                <li *ngFor="let comentario of comentarios"></li>
-            </ul>
-        </li>
-    </ul> 
+        <div class="card" *ngFor="let post of posts.docs">
+            <div class="card-body">
+                    <h5>{{post.titulo}}</h5>
+                    <div>{{post.texto}}</div>
+
+                    <div *ngFor="let comentario of comentarios">
+                            <h6>{{comentario.titulo}}</h6>
+                            <div>{{comentario.texto}}</div>
+                    </div>
+            </div>
+           
+ 
+        </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { HomeService } from './home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  posts: any;
+  posts: Post[];
 
   constructor(private service: HomeService) { }
 
@@ -20,9 +21,5 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-
-}
-
-export class Post{
 
 }
